@@ -1,0 +1,65 @@
+.header {
+    color: white;
+    font-size: 0.7em;
+    padding: 0.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap");
+
+body {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 30px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#pagination_data {
+    width: 100%;
+    margin: 0 auto;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+.header table tr th {
+    /* border: 1px solid #eeeeee; */
+    font-size: 15px;
+    text-align: left;
+}
+
+.header .table {
+    /* border: 1px solid #eeeeee; */
+    font-size: 18px;
+    text-align: left;
+}
+
+.table tr th {
+    font-size: 18px;
+    padding: 12px;
+    border: 1px solid #eeeeee;
+    text-align: left;
+    background-color: rgba(217, 221, 146, 0.2);
+}
+
+.table tr td {
+    border: 1px solid #eeeeee;
+    text-align: left;
+}
+#cartGrid_wrapper {
+    width: 100%;
+}
