@@ -31,9 +31,9 @@ body {
 }
 
 #pagination_data {
-    width: 100%;
+    /* width: 100%; */
     margin: 0 auto;
-    margin: 0 0.5rem 0 0.5rem;
+    /* margin: 0 0.5rem 0 0.5rem; */
 }
 
 .header table tr th {

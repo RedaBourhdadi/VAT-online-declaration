@@ -8,10 +8,20 @@
     <div id="pagination_data">
     <div class="header mt-3 w-100">
         <table  class=" w-100">
-            <tr>
-                <th>COL1</th>
-                <th>COL2</th>
-                <th>COL3</th>
+        <tr>
+                <th width="5%">OR</th>
+                <th width="9%">FACT_NUM</th>
+                <th width="12%">DESIGNATION</th>
+                <th width="6%">M_HT</th>
+                <th width="6%">TVA</th>
+                <th width="6%">M_TTC</th>
+                <th width="5%">IF</th>
+                <th width="13%">LIB_FRSS</th>
+                <th width="7%">ICE_FRS</th>
+                <th width="7%">TAUX</th>
+                <th width="7%">ID_PAIE</th>
+                <th width="9%">DATE_PAIE</th>
+                <th width="8%">DATE_FAC</th>
             </tr>
         </table>
     </div>
@@ -19,7 +29,8 @@
         <table id="cartGrid" class="table table-bordered table-hover">
                 <?php
                 $num=0;
-                foreach ($cars as $car)
+
+                foreach ($table as $t)
                 { 
                     if( $num==0){
                            
@@ -33,35 +44,37 @@
     
                     }
                     echo " <tr class='dnd-moved'>" ;
-                    foreach ($car as $key=>$value)
-                    { 
+                    $col=0;
+                    foreach ($t as $key=>$value)
+                    { $col++;
                         if( $num==0){
                            
                             echo " <th> $value </th>"; 
-
-                            
                         }
 
                         else{
-                            echo " <td> $value </td>"; 
+                            if($col==12 || $col==13){
+                                $excel_date = (int) $value; //here is that value 41621 or 41631
+                                $unix_date = ($excel_date - 25569) * 86400;
+                                $excel_date = 25569 + ($unix_date / 86400);
+                                $unix_date = ($excel_date - 25569) * 86400;
+                                
+                                echo " <td> ".gmdate('Y-m-d', $unix_date)." </td>"; 
+
+                            }else{
+                                echo " <td> $value </td>"; 
+                            }
                             
-        
                         }
-
-
 
                     }
                     echo " <tr>" ;
                     if( $num==0){
                            
-                        echo "</thead>" ;
-
-                        
+                        echo "</thead>" ;  
                     }
                     else{
                         echo "</tbody>" ;
-                        
-    
                     }
                     $num++;
                 }

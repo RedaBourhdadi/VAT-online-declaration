@@ -10,8 +10,18 @@ class ExcelTva extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'col1',
-        'col2',
-        'col3',       
+        'OR',
+        'FACT_NUM',
+        'DESIGNATION',  
+        'M_HT',   
+        'TVA',   
+        'M_TTC',   
+        'IF',   
+        'LIB_FRSS',   
+        'ICE_FRS',  
+        'TAUX',  
+        'ID_PAIE',  
+        'DATE_PAIE',
+        'DATE_FAC',
     ];
 }

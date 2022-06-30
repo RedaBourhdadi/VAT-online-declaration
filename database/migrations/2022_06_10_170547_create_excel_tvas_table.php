@@ -16,9 +16,19 @@ class CreateExcelTvasTable extends Migration
         Schema::create('excel_tvas', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('col1');
-            $table->string('col2');
-            $table->string('col3');
+            $table->integer('OR');
+            $table->integer('FACT_NUM');
+            $table->string('DESIGNATION');
+            $table->double('M_HT');
+            $table->double('TVA');
+            $table->double('M_TTC');
+            $table->integer('IF');
+            $table->string('LIB_FRSS');
+            $table->string('ICE_FRS');
+            $table->integer('TAUX');
+            $table->integer('ID_PAIE');
+            $table->date('DATE_PAIE');
+            $table->date('DATE_FAC');
             $table->timestamps();
         });
     }
