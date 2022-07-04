@@ -63,3 +63,58 @@ body {
 #cartGrid_wrapper {
     width: 100%;
 }
+.sorting,
+.sorting_asc,
+.sorting_desc {
+    /* background-color: blue !important; */
+    /* width: 10px !important; */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    /* padding: 0 !important; */
+}
+
+#search1,
+#search2,
+#search3,
+#search4,
+#search5,
+#search6,
+#search7,
+#search8,
+#search9,
+#search10,
+#search11,
+#search12,
+#search13 {
+    width: 100%;
+    margin: 0 auto;
+    /* margin: 0 0.5rem 0 0.5rem; */
+}
+
+/* #search1,
+#search7 {
+    width: 5%;
+}
+
+#search2,
+#search12,
+#search13 {
+    width: 9%;
+}
+#search3,
+#search8 {
+    width: 12%;
+}
+#search4,
+#search5,
+#search6 {
+    width: 6%;
+}
+#search8,
+#search10,
+#search11 {
+    width: 7%;
+} */

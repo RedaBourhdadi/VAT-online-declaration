@@ -3,8 +3,12 @@
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
 
+<style>
 
-<div class="container">
+
+</style>
+
+<div class="">
     <div class="row">
 
 
@@ -13,19 +17,53 @@
 
     <table id="cartGrid" class="table table-striped table-bordered "  cellspacing="0">
   <thead>
-    <tr>
-      <th scope="col" width="5%">SL </th>
-      <th scope="col" width="31.6%">col1</th>
-      <th scope="col" width="31.6%">col2</th>
-      <th scope="col" width="31.6%">col3</th>
-    </tr>
+  <tr>
+                <th width="5%" >OR</th>
+                <th width="9%" >FACT_NUM</th>
+                <th width="12%">DESIGNATION</th>
+                <th width="6%" >M_HT</th>
+                <th width="6%" >TVA</th>
+                <th width="6%" >M_TTC</th>
+                <th width="5%" >IF</th>
+                <th width="13%">LIB_FRSS</th>
+                <th width="7%" >ICE_FRS</th>
+                <th width="7%" >TAUX</th>
+                <th width="7%" >ID_PAIE</th>
+                <th width="9%" >DATE_PAIE</th>
+                <th width="8%" >DATE_FAC</th>
+
+                <!-- <th >OR</th>
+                <th >FACT_NUM</th>
+                <th >DESIGNATION</th>
+                <th >M_HT</th>
+                <th >TVA</th>
+                <th >M_TTC</th>
+                <th >IF</th>
+                <th >LIB_FRSS</th>
+                <th >ICE_FRS</th>
+                <th >TAUX</th>
+                <th >ID_PAIE</th>
+                <th >DATE_PAIE</th>
+                <th >DATE_FAC</th> -->
+
+
+            </tr>
     </thead>
     <thead>
     <tr>
-      <th><input type="text" id="search1" placeholder="SL"></td>
-      <th><input type="text" id="search2" placeholder="col1"></td>
-      <th><input type="text" id="search3" placeholder="col2"></td>
-      <th><input type="text" id="search4" placeholder="col3"></td>
+      <th><input type="text" id="search1" placeholder="OR"></td>
+      <th><input type="text" id="search2" placeholder="FACT_NUM"></td>
+      <th><input type="text" id="search3" placeholder="DESIGNATION"></td>
+      <th><input type="text" id="search4" placeholder="M_HT"></td>
+      <th><input type="text" id="search5" placeholder="TVA"></td>
+      <th><input type="text" id="search6" placeholder="M_TTC"></td>
+      <th><input type="text" id="search7" placeholder="IF"></td>
+      <th><input type="text" id="search8" placeholder="LIB_FRSS"></td>
+      <th><input type="text" id="search9" placeholder="ICE_FRS"></td>
+      <th><input type="text" id="search10" placeholder="TAUX"></td>
+      <th><input type="text" id="search11" placeholder="ID_PAIE"></td>
+      <th><input type="text" id="search12" placeholder="DATE_PAIE"></td>
+      <th><input type="text" id="search13" placeholder="DATE_FAC"></td>
     </tr> </thead>
 
   <tbody>
@@ -33,10 +71,19 @@
         @foreach($Tvatable as $Tva) 
     <tr>
       <th scope="row"> {{ $i++  }} </th>
-      <td> {{ $Tva->col1 }} </td>
-      <td> {{ $Tva->col2 }} </td>
-      <td> {{ $Tva->col3 }} </td>
-      
+      <!-- <td> {{ $Tva->OR }} </td> -->
+      <td> {{ $Tva->FACT_NUM }} </td>
+      <td> {{ $Tva->DESIGNATION }} </td>
+      <td> {{ $Tva->M_HT }} </td>
+      <td> {{ $Tva->TVA }} </td>
+      <td> {{ $Tva->M_TTC }} </td>
+      <td> {{ $Tva->IF }} </td>
+      <td> {{ $Tva->LIB_FRSS }} </td>
+      <td> {{ $Tva->ICE_FRS }} </td>
+      <td> {{ $Tva->TAUX }} </td>
+      <td> {{ $Tva->ID_PAIE }} </td>
+      <td> {{ $Tva->DATE_PAIE }} </td>
+      <td> {{ $Tva->DATE_FAC }} </td>
 
 
 
@@ -83,7 +130,7 @@
 //     $('#cartGrid').DataTable();
 // });
 var $rows = $('#cartGrid tbody tr');
-var filters = [[],[],[],[]];
+var filters = [[],[],[],[],[],[],[],[],[],[],[],[],[]];
 $("[id*=search]").keyup(function() {
     var col = this.id.replace(/[a-z]/gi, "") - 1;
     filters[col] = $(this).val().trim().replace(/ +/g, ' ').toLowerCase().split(",").filter(l => l.length);

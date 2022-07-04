@@ -44,8 +44,6 @@ Route::GET('/exportXml', [CotrollerXML::class, 'afficherXML'])->name('exportXml'
 
 Route::Post('/exportXmlValid', [CotrollerXML::class, 'exportXml'])->name('exportXmlValid');
 
-
-
 // Route::post('/importValid', function (Request $request) {
 //   if (Request::ajax()) {
 //        $data = $request->all();
