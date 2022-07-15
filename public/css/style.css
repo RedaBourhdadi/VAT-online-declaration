@@ -94,6 +94,26 @@ body {
     /* margin: 0 0.5rem 0 0.5rem; */
 }
 
+.correcte {
+    color: rgba(255, 106, 0, 0.5);
+}
+
+.vide {
+    color: rgba(255, 0, 0, 0.54);
+}
+.sup {
+    color: rgba(247, 227, 68, 0.5);
+}
+.today {
+    /* color: rgba(0, 255, 0, 0.5); */
+    color: rgba(253, 160, 93, 0.5);
+}
+.calc {
+    color: rgba(255, 0, 208, 0.5);
+}
+/* rgba(255, 106, 0, 0.5) */
+/* #ff7171 */
+
 /* #search1,
 #search7 {
     width: 5%;
