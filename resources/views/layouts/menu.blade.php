@@ -114,4 +114,13 @@ $isPermissionActive = Request::is($urlAdmin.'*permissions*');
         <p>Export Xml</p>
     </a>
 </li>
+
+@endcan
+@can('societe.index')
+<li class="nav-item">
+    <a href="{{ route('societe') }}" class="nav-link">
+        <i class="nav-icon fas fa-file-alt"></i>
+        <p>Societe</p>
+    </a>
+</li>
 @endcan

@@ -111,6 +111,22 @@ body {
 .calc {
     color: rgba(255, 0, 208, 0.5);
 }
+
+.tva {
+    margin-top: 10px;
+    margin-right: 10px;
+    height: 150px;
+    overflow: hidden;
+}
+.roy {
+    margin-bottom: 10px;
+    width: 65px;
+    height: 65px;
+    overflow: hidden;
+}
+.textR {
+    text-align: center;
+}
 /* rgba(255, 106, 0, 0.5) */
 /* #ff7171 */
 

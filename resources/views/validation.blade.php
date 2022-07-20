@@ -129,6 +129,31 @@ if ($cond==true) {
 
 
     <script>
+    var datae = "qdsqsdqsdzeaze";
+    var testVid = true,
+        test = true,
+        testNum = true,
+        testPF = true,
+        testOr = true,
+        testDP = true;
+
+    var myTableArray = [];
+    var DATE_PAIE = new Date("2000/00/00");
+    var DATE_FAC = new Date("2000/00/00");
+    var TVA = 0;
+    var TVAT = 0;
+    var MHT = 0;
+    var MTTC = 0;
+    var Taux = 0;
+    var conT = 0;
+    var Sum = 0;
+    var testVid = true;
+    var testCal = true;
+    var myTableArray = [];
+    var myTableArray1 = [];
+
+
+
     function compart() {
         var rows = document.querySelectorAll(".table2")[0].rows;
         var last = rows[rows.length - 1];
@@ -232,59 +257,232 @@ if ($cond==true) {
         }
         switch (cntCol) {
             case 0:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "rgba(255, 0, 0, 0.53)";
+                test = false;
+                testOr = false;
                 break;
             case 2:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#ff6a0080";
+                test = false;
+                testOr = false;
                 break;
             case 3:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#ff6a0080";
+                test = false;
+                testOr = false;
                 break;
             case 4:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#b4ff0073";
+                test = false;
+                testOr = false;
                 break;
             case 5:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#b4ff0073";
+                test = false;
+                testOr = false;
                 break;
             case 6:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#fcf8005c";
+                test = false;
+                testOr = false;
                 break;
             case 7:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#fcf8005c";
+                test = false;
+                testOr = false;
                 break;
             case 8:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#fffb005c";
+                test = false;
+                testOr = false;
                 break;
             case 9:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#fffb005c";
+                test = false;
+                testOr = false;
                 break;
             case 10:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#9dff005c";
+                test = false;
+                testOr = false;
                 break;
             case 11:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#9dff005c";
+                test = false;
+                testOr = false;
                 break;
             case 12:
-                console.log(cntCol);
                 document.querySelector(".header").style.backgroundColor = "#9dff005c";
+                test = false;
+                testOr = false;
                 break;
             case 13:
-                console.log(cntCol);
+                testOr = true;
+                test = true;
 
                 document.querySelector(".header").style.backgroundColor = "#10ff005c";
+                $("table#cartGrid tr ").each(function() {
+                    var arrayOfThisRow = [];
+                    var coon = 0;
+                    var tableData = $(this).find('td , th');
+                    if (tableData.length > 0) {
+                        tableData.each(function() {
+                            coon++;
+                            arrayOfThisRow.push($(this).text());
+
+                            if (coon == 1 && $(this).text().trim()
+                                .toUpperCase() != "OR") {}
+                            if (coon == 7) {
+                                if ($(this).text().trim().length < 11 && $(this).text().trim()
+                                    .toUpperCase() != "IF") {
+                                    var num = $(this).text().trim();
+                                    const regex = new RegExp(/^[0-9]{7,10}$/g);
+                                    if (regex.test(num) != false) {} else {
+                                        console.log(regex.test(num));
+                                        $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
+                                        testNum = false;
+                                        test = false;
+                                    }
+
+                                }
+
+                            }
+                            if (coon == 9) {
+                                if ($(this).text().trim().length < 11 && $(this).text().trim()
+                                    .toUpperCase() != "ICE_FRS") {
+                                    var num = $(this).text().trim();
+
+                                    const regex = new RegExp(/^[0-9]{7,16}$/g);
+                                    if (regex.test(num) != false) {} else {
+                                        console.log(regex.test(num));
+                                        $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
+                                        testNum = false;
+                                        test = false;
 
 
+                                    }
+
+                                }
+
+                            }
+
+                            if (coon == 12) {
+                                if ($(this).text().trim().length < 11 && $(this).text().trim()
+                                    .toUpperCase() != "DATE_PAIE") {
+                                    // DATE_PAIE = $(this).text().trim();
+                                    DATE_PAIE = $(this).text().trim();
+                                    var today = new Date();
+                                    var dd = String(today.getDate()).padStart(2, '0');
+                                    var mm = String(today.getMonth() + 1).padStart(2,
+                                        '0'); //January is 0!
+                                    var yyyy = today.getFullYear();
+
+                                    today = yyyy + '/' + dd + '/' + mm;
+
+                                    if (DATE_PAIE > today) {
+                                        $(this).css('background-color', ' rgba(253, 160, 93, 0.5) ');
+                                        testDP = false;
+
+
+                                    }
+
+
+                                }
+
+                            }
+                            if (coon == 13) {
+                                if ($(this).text().trim().length < 11 && $(this).text().trim()
+                                    .toUpperCase() != "DATE_FAC") {
+                                    // DATE_PAIE = $(this).text().trim();
+                                    DATE_FAC = $(this).text().trim();
+
+                                    // console.log(DATE_PAIE);
+
+                                    if (DATE_PAIE >= DATE_FAC) {
+                                        $(this).css('background-color', ' rgba(247, 227, 68, 0.5) ');
+                                        testPF = false;
+
+
+                                    } else {
+                                        // test = false;
+
+
+                                    }
+
+                                }
+
+                            }
+
+
+                            if ($(this).text().trim() == '') {
+                                $(this).css('background-color', 'rgba(255, 0, 0, 0.54)');
+                                testVid = false;
+                                test = false;
+
+                            }
+
+                            if (coon == 13) {
+                                coon = 0
+                            }
+
+                        });
+                        myTableArray.push(arrayOfThisRow);
+                    }
+
+                });
+                $("table#cartGrid tr ").each(function() {
+                    var coonT = 0;
+                    var arrayOfThisRow = [];
+                    var tableData = $(this).find('td , th');
+                    if (tableData.length > 0) {
+                        tableData.each(function() {
+                            coonT++;
+                            if (coonT == 5) {
+                                MHT = parseFloat(myTableArray[conT][3]).toFixed(2);
+                                Taux = parseFloat(myTableArray[conT][9]).toFixed(2);
+                                TVAT = parseFloat(myTableArray[conT][4]);
+                                TVA = parseFloat(((MHT * Taux) / 100));
+                                if ($(this).text().trim() == '') {
+                                    $(this).append(TVA.toFixed(2));
+                                    $(this).css('background-color', 'none');
+                                    testVid = true;
+                                    test = true;
+                                } else if (myTableArray[conT][4].trim() != TVA.toFixed(2) && $(this)
+                                    .text().trim() != 'TVA') {
+                                    // console.log(myTableArray[conT][4].trim())
+                                    // console.log(TVA.toFixed(2))
+                                    $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
+                                    testCal = false;
+                                    test = true;
+                                    console.log(testCal);
+                                }
+                            }
+
+                            if (coonT == 6) {
+                                MTTC = parseFloat(myTableArray[conT][3]) + TVA;
+                                Sum = parseFloat(myTableArray[conT][5].trim());
+                                if ($(this).text().trim() == '') {
+                                    $(this).append(MTTC.toFixed(2));
+                                    testVid = true;
+                                    $(this).css('background-color', 'none');
+                                } else if (Sum.toFixed(2) != MTTC.toFixed(2)) {
+                                    // console.log(parseFloat(myTableArray[4][3].trim()) + parseFloat(myTableArray[4][4].trim()))
+                                    $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
+                                    testCal = false;
+                                }
+                            }
+
+                            if (coonT == 13) {
+                                coonT = 0;
+                                conT++;
+                            }
+                            arrayOfThisRow.push($(this).text());
+
+                        });
+                        myTableArray1.push(arrayOfThisRow);
+                    }
+
+                });
 
 
 
@@ -306,6 +504,8 @@ if ($cond==true) {
                         // $(this).css('background-color', '#ff0000');
                     } else {
                         $(this).css('background-color', 'rgba(255, 0, 0, 0.54)');
+                        testVid = false;
+                        test = false;
                     }
                 });
                 myTableArrayVa.push(arrayOfThisRowVa);
@@ -332,193 +532,17 @@ if ($cond==true) {
     });
 
 
-    var testVid, testNum, test, testPF, testDP = true;
 
 
     $('#search_name').on('click ', function() {
-        var datae = "qdsqsdqsdzeaze";
-        var myTableArray = [];
-        var DATE_PAIE = new Date("2000/00/00");
-        var DATE_FAC = new Date("2000/00/00");
-        var TVA = 0;
-        var TVAT = 0;
-        var MHT = 0;
-        var MTTC = 0;
-        var Taux = 0;
-        var conT = 0;
-        var Sum = 0;
-        var testVid = true;
-        var testCal = true;
-        var myTableArray = [];
-        var myTableArray1 = [];
 
 
 
-        $("table#cartGrid tr ").each(function() {
-            var arrayOfThisRow = [];
-            var coon = 0;
-            var tableData = $(this).find('td , th');
-            if (tableData.length > 0) {
-                tableData.each(function() {
-                    coon++;
-                    arrayOfThisRow.push($(this).text());
-
-                    if (coon == 1 && $(this).text().trim()
-                        .toUpperCase() != "OR") {}
-                    if (coon == 7) {
-                        if ($(this).text().trim().length < 11 && $(this).text().trim()
-                            .toUpperCase() != "IF") {
-                            var num = $(this).text().trim();
-                            const regex = new RegExp(/^[0-9]{7,10}$/g);
-                            if (regex.test(num) != false) {} else {
-                                console.log(regex.test(num));
-                                $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
-                                testNum = false;
-                                test = false;
-                            }
-
-                        }
-
-                    }
-                    if (coon == 9) {
-                        if ($(this).text().trim().length < 11 && $(this).text().trim()
-                            .toUpperCase() != "ICE_FRS") {
-                            var num = $(this).text().trim();
-
-                            const regex = new RegExp(/^[0-9]{7,16}$/g);
-                            if (regex.test(num) != false) {} else {
-                                console.log(regex.test(num));
-                                $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
-                                testNum = false;
-                                test = false;
 
 
-                            }
 
-                        }
-
-                    }
-
-                    if (coon == 12) {
-                        if ($(this).text().trim().length < 11 && $(this).text().trim()
-                            .toUpperCase() != "DATE_PAIE") {
-                            // DATE_PAIE = $(this).text().trim();
-                            DATE_PAIE = $(this).text().trim();
-                            var today = new Date();
-                            var dd = String(today.getDate()).padStart(2, '0');
-                            var mm = String(today.getMonth() + 1).padStart(2,
-                                '0'); //January is 0!
-                            var yyyy = today.getFullYear();
-
-                            today = yyyy + '/' + dd + '/' + mm;
-
-                            if (DATE_PAIE > today) {
-                                $(this).css('background-color', ' rgba(253, 160, 93, 0.5) ');
-                                testDP = false;
-
-
-                            }
-
-
-                        }
-
-                    }
-                    if (coon == 13) {
-                        if ($(this).text().trim().length < 11 && $(this).text().trim()
-                            .toUpperCase() != "DATE_FAC") {
-                            // DATE_PAIE = $(this).text().trim();
-                            DATE_FAC = $(this).text().trim();
-
-                            // console.log(DATE_PAIE);
-
-                            if (DATE_PAIE >= DATE_FAC) {
-                                $(this).css('background-color', ' rgba(247, 227, 68, 0.5) ');
-                                testPF = false;
-
-
-                            } else {
-                                // test = false;
-
-
-                            }
-
-                        }
-
-                    }
-
-
-                    if ($(this).text().trim() == '') {
-                        $(this).css('background-color', 'rgba(255, 0, 0, 0.54)');
-                        testVid = false;
-                        test = false;
-
-                    }
-
-                    if (coon == 13) {
-                        coon = 0
-                    }
-
-                });
-                myTableArray.push(arrayOfThisRow);
-            }
-
-        });
-        $("table#cartGrid tr ").each(function() {
-            var coonT = 0;
-            var arrayOfThisRow = [];
-            var tableData = $(this).find('td , th');
-            if (tableData.length > 0) {
-                tableData.each(function() {
-                    coonT++;
-                    if (coonT == 5) {
-                        MHT = parseFloat(myTableArray[conT][3]).toFixed(2);
-                        Taux = parseFloat(myTableArray[conT][9]).toFixed(2);
-                        TVAT = parseFloat(myTableArray[conT][4]);
-                        TVA = parseFloat(((MHT * Taux) / 100));
-                        if ($(this).text().trim() == '') {
-                            $(this).append(TVA.toFixed(2));
-                            $(this).css('background-color', 'none');
-                            testVid = true;
-                            test = true;
-                        } else if (myTableArray[conT][4].trim() != TVA.toFixed(2) && $(this)
-                            .text().trim() != 'TVA') {
-                            // console.log(myTableArray[conT][4].trim())
-                            // console.log(TVA.toFixed(2))
-                            $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
-                            testCal = false;
-                            test = true;
-                            console.log(testCal);
-                        }
-                    }
-
-                    if (coonT == 6) {
-                        MTTC = parseFloat(myTableArray[conT][3]) + TVA;
-                        Sum = parseFloat(myTableArray[conT][5].trim());
-                        if ($(this).text().trim() == '') {
-                            $(this).append(MTTC.toFixed(2));
-                            testVid = true;
-                            $(this).css('background-color', 'none');
-                        } else if (Sum.toFixed(2) != MTTC.toFixed(2)) {
-                            // console.log(parseFloat(myTableArray[4][3].trim()) + parseFloat(myTableArray[4][4].trim()))
-                            $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
-                            testCal = false;
-                        }
-                    }
-
-                    if (coonT == 13) {
-                        coonT = 0;
-                        conT++;
-                    }
-                    arrayOfThisRow.push($(this).text());
-
-                });
-                myTableArray1.push(arrayOfThisRow);
-            }
-
-        });
 
         var requestData = JSON.stringify(myTableArray1);
-        console.log(test);
 
         if (test == true) {
             console.log(myTableArray1);
@@ -551,6 +575,9 @@ if ($cond==true) {
             }
             if (testNum == false) {
                 toastr.error('Please check the number');
+            }
+            if (testOr == false) {
+                toastr.error('please order columns in the right way');
             }
 
             // toastr.warning("Please check the data");

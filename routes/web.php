@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\CotrollerXML;
+use App\Http\Controllers\SocietesController;
 
 
 /*
@@ -43,6 +44,14 @@ Route::GET('/exportXml', [CotrollerXML::class, 'afficherXML'])->name('exportXml'
 
 
 Route::Post('/exportXmlValid', [CotrollerXML::class, 'exportXml'])->name('exportXmlValid');
+
+
+Route::GET('/societe', [SocietesController::class, 'create'])->name('societe');
+Route::POST('/societe/store', [SocietesController::class, 'store'])->name('storeSociete');
+Route::GET('/societe/show', [SocietesController::class, 'show'])->name('ShowSociete');
+Route::POST('/societe/edit', [SocietesController::class, 'edit'])->name('EditSociete');
+Route::POST('/societe/valid', [SocietesController::class, 'update'])->name('UpdateSociete');
+
 
 // Route::post('/importValid', function (Request $request) {
 //   if (Request::ajax()) {

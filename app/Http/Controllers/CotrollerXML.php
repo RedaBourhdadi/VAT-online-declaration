@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\ExcelTva;
+use App\Models\Societe;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class CotrollerXML extends Controller
 {
@@ -23,7 +27,12 @@ class CotrollerXML extends Controller
         // $firstRow = ExcelTva::whereEmail($email)->first();
         $Tvatable = ExcelTva::where('created_at','>=', date("Y-m-d H:i:s", (strtotime(date($firstRow->created_at)) - $seconds)))->get();
         // $Tvatable = ExcelTva::all();
-        return view('exportXml',compact('Tvatable'));
+        $societes = Societe::where('user_id', Auth::user()->id)->get()->first();
+        if ($societes != null) {
+            return view('exportXml',compact('Tvatable', 'societes'));
+        } else {
+            return view('societe.create');
+        }
     }
 
     public function exportXml(Request $request)
@@ -41,13 +50,54 @@ class CotrollerXML extends Controller
 
         $root = $xmlDoc->appendChild($xmlDoc->createElement("DeclarationReleveDeduction"));
         // $root->appendChild($xmlDoc->createElement("Version", "1.0", "yes"));
+        $con=0;
+        
         foreach ($data as $key => $value) {
-            $root->appendChild($xmlDoc->createElement("SL",$value[0]));
-            $root->appendChild($xmlDoc->createElement("col1",$value[1]));
-            $root->appendChild($xmlDoc->createElement("col2",$value[2]));
-            $root->appendChild($xmlDoc->createElement("col3",$value[3]));
+
+
+
+
+            $con++;
+            if ($con==1){
+
+            $root->appendChild($xmlDoc->createElement("identifiantFiscal",$value[0]));
+            $root->appendChild($xmlDoc->createElement("annee",$value[2]));
+            $root->appendChild($xmlDoc->createElement("periode",$value[3]));
+            $root->appendChild($xmlDoc->createElement("regime",$value[4]));
+            $releveDeductions = $root->appendChild($xmlDoc->createElement("releveDeductions"));
+
+            }
+            if ($con>3){
+
+              $rd=$releveDeductions->appendChild($xmlDoc->createElement("rd"));
+              $rd->appendChild($xmlDoc->createElement("ord",$value[0]));
+              $rd->appendChild($xmlDoc->createElement("num",$value[1]));
+              $rd->appendChild($xmlDoc->createElement("des",$value[2]));
+              $rd->appendChild($xmlDoc->createElement("mht",$value[3]));
+              $rd->appendChild($xmlDoc->createElement("tva",$value[4]));
+              $rd->appendChild($xmlDoc->createElement("ttc",$value[5]));
+              $refF=$rd->appendChild($xmlDoc->createElement("refF"));
+              $refF->appendChild($xmlDoc->createElement("if",$value[6]));
+              $refF->appendChild($xmlDoc->createElement("nom",$value[7]));
+              $refF->appendChild($xmlDoc->createElement("ice",$value[8]));
+              $rd->appendChild($xmlDoc->createElement("tx",$value[9]));
+              $mp=$rd->appendChild($xmlDoc->createElement("mp"));
+              $mp->appendChild($xmlDoc->createElement("id",$value[10]));
+              $rd->appendChild($xmlDoc->createElement("dpai",$value[11]));
+              $rd->appendChild($xmlDoc->createElement("dfac",$value[12]));
+            }
+
+            // echo "<script>     console.log(" . . ");</script>";
+            // $root->appendChild($xmlDoc->createElement("identifiantFiscal",$value[0]));
+
+
+            // $root->appendChild($xmlDoc->createElement("SL",$value[0]));
+            // $root->appendChild($xmlDoc->createElement("col1",$value[1]));
+            // $root->appendChild($xmlDoc->createElement("col2",$value[2]));
+            // $root->appendChild($xmlDoc->createElement("col3",$value[3]));
 
         }
+
         return  $xmlDoc->saveXML();
         // $xmlDoc->save("TVA.xml");
         // $xmlDoc->saveXML();
