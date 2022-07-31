@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExcelTva extends Model
+class archivages extends Model
 {
+    
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'identifiantFiscal',
+        'identifiantFiscale',
         'OR',
         'FACT_NUM',
         'DESIGNATION',  

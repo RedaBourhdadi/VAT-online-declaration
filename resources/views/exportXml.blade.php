@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <th class="table-light my-1 py-1  ">Annee</th>
-                    <td class=" my-1 py-1  ">2022</td>
+                    <td class=" my-1 py-1  "> 2022</td>
                 </tr>
                 <tr>
                     <th class="table-light my-1 py-1  ">PERIODE</th>
@@ -168,6 +168,7 @@
 
 
 <script type="text/javascript">
+var ID_FISCAL = "{{$societes->identifiantFiscale}}";
 // $(document).ready(function () {
 //     $('#cartGrid').DataTable();
 // });
@@ -220,6 +221,7 @@ $('#search_name').on('click ', function() {
         var tableData = $(this).find('td');
         if (tableData.length > 0) {
             tableData.each(function() {
+
                 myTableArrayS.push($(this).text());
             });
         }
@@ -240,7 +242,6 @@ $('#search_name').on('click ', function() {
 
     });
 
-    console.log(myTableArray);
     var requestData = JSON.stringify(myTableArray);
 
     $.ajax({
@@ -257,7 +258,7 @@ $('#search_name').on('click ', function() {
             // } else {
             //     toastr.error(data.message);
             // }
-            console.log(data);
+
             const blob = new Blob([data], {
                 type: 'text/xml'
             });
@@ -267,9 +268,15 @@ $('#search_name').on('click ', function() {
             link.download = 'export.xml';
             link.click();
             window.URL.revokeObjectURL(url);
+            // creete link to redirect to view weth the id of the societe
+
+            var linkk = document.createElement('a');
+            linkk.href = "{{ route('afficherArchivages',['id'=>$societes->identifiantFiscale]) }}";
+            linkk.click();
 
         }
     });
+
 
 
 

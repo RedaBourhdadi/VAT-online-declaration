@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Archivages;
 // pmport DOMDocument
 use DOMDocument;
 // pmport Response
@@ -51,7 +52,7 @@ class CotrollerXML extends Controller
         $root = $xmlDoc->appendChild($xmlDoc->createElement("DeclarationReleveDeduction"));
         // $root->appendChild($xmlDoc->createElement("Version", "1.0", "yes"));
         $con=0;
-        
+        $identifiantFiscal =1;
         foreach ($data as $key => $value) {
 
 
@@ -59,7 +60,7 @@ class CotrollerXML extends Controller
 
             $con++;
             if ($con==1){
-
+                $identifiantFiscal=$value[1];
             $root->appendChild($xmlDoc->createElement("identifiantFiscal",$value[0]));
             $root->appendChild($xmlDoc->createElement("annee",$value[2]));
             $root->appendChild($xmlDoc->createElement("periode",$value[3]));
@@ -85,6 +86,8 @@ class CotrollerXML extends Controller
               $mp->appendChild($xmlDoc->createElement("id",$value[10]));
               $rd->appendChild($xmlDoc->createElement("dpai",$value[11]));
               $rd->appendChild($xmlDoc->createElement("dfac",$value[12]));
+              Archivages::insert(['user_id' => Auth::id(),'identifiantFiscale'=>$identifiantFiscal ,'OR' => $value[0],'FACT_NUM' => $value[1],'DESIGNATION' => $value[2],'M_HT' => $value[3],'TVA' => $value[4],'M_TTC' => $value[5],'IF' => $value[6],'LIB_FRSS' => $value[7],'ICE_FRS' => $value[8],'TAUX' => $value[9],'ID_PAIE' => $value[10],'DATE_PAIE' => $value[11]." 00:00:00",'DATE_FAC' => $value[12]." 00:00:00", 'created_at' => now(), 'updated_at' => now()]);
+              
             }
 
             // echo "<script>     console.log(" . . ");</script>";

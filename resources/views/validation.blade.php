@@ -88,10 +88,10 @@ if ($cond==true) {
                                 $excel_date = 25569 + ($unix_date / 86400);
                                 $unix_date = ($excel_date - 25569) * 86400;
                                 
-                                echo " <td> ".gmdate('Y/m/d', $unix_date)." </td>"; 
+                                echo " <td class='editMe'> ".gmdate('Y/m/d', $unix_date)." </td>"; 
 
                             }else{
-                                echo " <td> $value </td>"; 
+                                echo " <td class='editMe'> $value </td>"; 
                             }
                             
                         }
@@ -123,12 +123,19 @@ if ($cond==true) {
     @endsection
 
     @push('page_scripts')
+    <script src="{{ asset('js/jquery-3.2.1.slim.min.js') }}"></script>
+
     <script src="{{ asset('js/jquery-1.11.0.min.js') }}"></script>
     <script src="{{ asset('dist/for-jQuery1.x/dragndrop.table.columns.min.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/SimpleTableCellEditor.js') }}"></script>
+
 
 
     <script>
+    $(document).ready(function() {
+        compart();
+    });
     var datae = "qdsqsdqsdzeaze";
     var testVid = true,
         test = true,
@@ -152,6 +159,171 @@ if ($cond==true) {
     var myTableArray = [];
     var myTableArray1 = [];
 
+    function valid() {
+        $("table#cartGrid tr ").each(function() {
+            var arrayOfThisRow = [];
+            var coon = 0;
+            var tableData = $(this).find('td , th');
+            if (tableData.length > 0) {
+                tableData.each(function() {
+                    coon++;
+                    arrayOfThisRow.push($(this).text());
+
+                    if (coon == 1 && $(this).text().trim()
+                        .toUpperCase() != "OR") {}
+                    if (coon == 7) {
+                        if ($(this).text().trim().length < 11 && $(this).text().trim()
+                            .toUpperCase() != "IF") {
+                            var num = $(this).text().trim();
+                            const regex = new RegExp(/^[0-9]{7,10}$/g);
+                            if (regex.test(num) != false) {} else {
+                                console.log(regex.test(num));
+                                $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
+                                testNum = false;
+                                test = false;
+                            }
+
+                        }
+
+                    }
+                    if (coon == 9) {
+                        if ($(this).text().trim().length < 11 && $(this).text().trim()
+                            .toUpperCase() != "ICE_FRS") {
+                            var num = $(this).text().trim();
+
+                            const regex = new RegExp(/^[0-9]{7,16}$/g);
+                            if (regex.test(num) != false) {} else {
+                                console.log(regex.test(num));
+                                $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
+                                testNum = false;
+                                test = false;
+
+
+                            }
+
+                        }
+
+                    }
+
+                    if (coon == 12) {
+                        if ($(this).text().trim().length < 11 && $(this).text().trim()
+                            .toUpperCase() != "DATE_PAIE") {
+                            // DATE_PAIE = $(this).text().trim();
+                            DATE_PAIE = $(this).text().trim();
+                            var today = new Date();
+                            var dd = String(today.getDate()).padStart(2, '0');
+                            var mm = String(today.getMonth() + 1).padStart(2,
+                                '0'); //January is 0!
+                            var yyyy = today.getFullYear();
+
+                            today = yyyy + '/' + dd + '/' + mm;
+
+                            if (DATE_PAIE > today) {
+                                $(this).css('background-color', ' rgba(253, 160, 93, 0.5) ');
+                                testDP = false;
+
+
+                            }
+
+
+                        }
+
+                    }
+                    if (coon == 13) {
+                        if ($(this).text().trim().length < 11 && $(this).text().trim()
+                            .toUpperCase() != "DATE_FAC") {
+                            // DATE_PAIE = $(this).text().trim();
+                            DATE_FAC = $(this).text().trim();
+
+                            // console.log(DATE_PAIE);
+
+                            if (DATE_PAIE >= DATE_FAC) {
+                                $(this).css('background-color', ' rgba(247, 227, 68, 0.5) ');
+                                testPF = false;
+
+
+                            } else {
+                                // test = false;
+
+
+                            }
+
+                        }
+
+                    }
+
+
+                    if ($(this).text().trim() == '') {
+                        $(this).css('background-color', 'rgba(255, 0, 0, 0.54)');
+                        testVid = false;
+                        test = false;
+
+                    }
+
+                    if (coon == 13) {
+                        coon = 0
+                    }
+
+                });
+                myTableArray.push(arrayOfThisRow);
+            }
+
+        });
+        $("table#cartGrid tr ").each(function() {
+            var coonT = 0;
+            var arrayOfThisRow = [];
+            var tableData = $(this).find('td , th');
+            if (tableData.length > 0) {
+                tableData.each(function() {
+                    coonT++;
+                    if (coonT == 5) {
+                        MHT = parseFloat(myTableArray[conT][3]).toFixed(2);
+                        Taux = parseFloat(myTableArray[conT][9]).toFixed(2);
+                        TVAT = parseFloat(myTableArray[conT][4]);
+                        TVA = parseFloat(((MHT * Taux) / 100));
+                        if ($(this).text().trim() == '') {
+                            $(this).append(TVA.toFixed(2));
+                            $(this).css('background-color', 'none');
+                            testVid = true;
+                            test = true;
+                        } else if (myTableArray[conT][4].trim() != TVA.toFixed(2) && $(this)
+                            .text().trim() != 'TVA') {
+                            // console.log(myTableArray[conT][4].trim())
+                            // console.log(TVA.toFixed(2))
+                            $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
+                            testCal = false;
+                            test = true;
+                            console.log(testCal);
+                        }
+                    }
+
+                    if (coonT == 6) {
+                        MTTC = parseFloat(myTableArray[conT][3]) + TVA;
+                        Sum = parseFloat(myTableArray[conT][5].trim());
+                        if ($(this).text().trim() == '') {
+                            $(this).append(MTTC.toFixed(2));
+                            testVid = true;
+                            $(this).css('background-color', 'none');
+                        } else if (Sum.toFixed(2) != MTTC.toFixed(2)) {
+                            // console.log(parseFloat(myTableArray[4][3].trim()) + parseFloat(myTableArray[4][4].trim()))
+                            $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
+                            testCal = false;
+                        }
+                    }
+
+                    if (coonT == 13) {
+                        coonT = 0;
+                        conT++;
+                    }
+                    arrayOfThisRow.push($(this).text());
+
+                });
+                myTableArray1.push(arrayOfThisRow);
+            }
+
+        });
+
+    }
 
 
     function compart() {
@@ -321,170 +493,30 @@ if ($cond==true) {
                 test = true;
 
                 document.querySelector(".header").style.backgroundColor = "#10ff005c";
-                $("table#cartGrid tr ").each(function() {
-                    var arrayOfThisRow = [];
-                    var coon = 0;
-                    var tableData = $(this).find('td , th');
-                    if (tableData.length > 0) {
-                        tableData.each(function() {
-                            coon++;
-                            arrayOfThisRow.push($(this).text());
 
-                            if (coon == 1 && $(this).text().trim()
-                                .toUpperCase() != "OR") {}
-                            if (coon == 7) {
-                                if ($(this).text().trim().length < 11 && $(this).text().trim()
-                                    .toUpperCase() != "IF") {
-                                    var num = $(this).text().trim();
-                                    const regex = new RegExp(/^[0-9]{7,10}$/g);
-                                    if (regex.test(num) != false) {} else {
-                                        console.log(regex.test(num));
-                                        $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
-                                        testNum = false;
-                                        test = false;
-                                    }
+                var logAllEvents = true;
 
-                                }
-
-                            }
-                            if (coon == 9) {
-                                if ($(this).text().trim().length < 11 && $(this).text().trim()
-                                    .toUpperCase() != "ICE_FRS") {
-                                    var num = $(this).text().trim();
-
-                                    const regex = new RegExp(/^[0-9]{7,16}$/g);
-                                    if (regex.test(num) != false) {} else {
-                                        console.log(regex.test(num));
-                                        $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
-                                        testNum = false;
-                                        test = false;
-
-
-                                    }
-
-                                }
-
-                            }
-
-                            if (coon == 12) {
-                                if ($(this).text().trim().length < 11 && $(this).text().trim()
-                                    .toUpperCase() != "DATE_PAIE") {
-                                    // DATE_PAIE = $(this).text().trim();
-                                    DATE_PAIE = $(this).text().trim();
-                                    var today = new Date();
-                                    var dd = String(today.getDate()).padStart(2, '0');
-                                    var mm = String(today.getMonth() + 1).padStart(2,
-                                        '0'); //January is 0!
-                                    var yyyy = today.getFullYear();
-
-                                    today = yyyy + '/' + dd + '/' + mm;
-
-                                    if (DATE_PAIE > today) {
-                                        $(this).css('background-color', ' rgba(253, 160, 93, 0.5) ');
-                                        testDP = false;
-
-
-                                    }
-
-
-                                }
-
-                            }
-                            if (coon == 13) {
-                                if ($(this).text().trim().length < 11 && $(this).text().trim()
-                                    .toUpperCase() != "DATE_FAC") {
-                                    // DATE_PAIE = $(this).text().trim();
-                                    DATE_FAC = $(this).text().trim();
-
-                                    // console.log(DATE_PAIE);
-
-                                    if (DATE_PAIE >= DATE_FAC) {
-                                        $(this).css('background-color', ' rgba(247, 227, 68, 0.5) ');
-                                        testPF = false;
-
-
-                                    } else {
-                                        // test = false;
-
-
-                                    }
-
-                                }
-
-                            }
-
-
-                            if ($(this).text().trim() == '') {
-                                $(this).css('background-color', 'rgba(255, 0, 0, 0.54)');
-                                testVid = false;
-                                test = false;
-
-                            }
-
-                            if (coon == 13) {
-                                coon = 0
-                            }
-
-                        });
-                        myTableArray.push(arrayOfThisRow);
-                    }
-
+                //Basic editor with no navigation
+                var simpleEditor = new SimpleTableCellEditor("cartGrid", {
+                    navigation: false,
                 });
-                $("table#cartGrid tr ").each(function() {
-                    var coonT = 0;
-                    var arrayOfThisRow = [];
-                    var tableData = $(this).find('td , th');
-                    if (tableData.length > 0) {
-                        tableData.each(function() {
-                            coonT++;
-                            if (coonT == 5) {
-                                MHT = parseFloat(myTableArray[conT][3]).toFixed(2);
-                                Taux = parseFloat(myTableArray[conT][9]).toFixed(2);
-                                TVAT = parseFloat(myTableArray[conT][4]);
-                                TVA = parseFloat(((MHT * Taux) / 100));
-                                if ($(this).text().trim() == '') {
-                                    $(this).append(TVA.toFixed(2));
-                                    $(this).css('background-color', 'none');
-                                    testVid = true;
-                                    test = true;
-                                } else if (myTableArray[conT][4].trim() != TVA.toFixed(2) && $(this)
-                                    .text().trim() != 'TVA') {
-                                    // console.log(myTableArray[conT][4].trim())
-                                    // console.log(TVA.toFixed(2))
-                                    $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
-                                    testCal = false;
-                                    test = true;
-                                    console.log(testCal);
-                                }
-                            }
-
-                            if (coonT == 6) {
-                                MTTC = parseFloat(myTableArray[conT][3]) + TVA;
-                                Sum = parseFloat(myTableArray[conT][5].trim());
-                                if ($(this).text().trim() == '') {
-                                    $(this).append(MTTC.toFixed(2));
-                                    testVid = true;
-                                    $(this).css('background-color', 'none');
-                                } else if (Sum.toFixed(2) != MTTC.toFixed(2)) {
-                                    // console.log(parseFloat(myTableArray[4][3].trim()) + parseFloat(myTableArray[4][4].trim()))
-                                    $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
-                                    testCal = false;
-                                }
-                            }
-
-                            if (coonT == 13) {
-                                coonT = 0;
-                                conT++;
-                            }
-                            arrayOfThisRow.push($(this).text());
-
-                        });
-                        myTableArray1.push(arrayOfThisRow);
-                    }
-
-                });
+                simpleEditor.SetEditableClass("editMe");
 
 
+                if (logAllEvents) {
+                    $("table").on("cell:onEditExit", function(event) {
+                        setTimeout(() => {
+                            console.log("onEditExit event")
+                            valid()
+                        }, 100);
+
+
+                        // setTimeout(compart(), 1000);
+
+                    });
+
+                }
+                valid();
 
                 break;
 

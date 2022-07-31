@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\CotrollerXML;
 use App\Http\Controllers\SocietesController;
+use App\Http\Controllers\CotrollerArchivages;
 
 
 /*
@@ -51,6 +52,12 @@ Route::POST('/societe/store', [SocietesController::class, 'store'])->name('store
 Route::GET('/societe/show', [SocietesController::class, 'show'])->name('ShowSociete');
 Route::POST('/societe/edit', [SocietesController::class, 'edit'])->name('EditSociete');
 Route::POST('/societe/valid', [SocietesController::class, 'update'])->name('UpdateSociete');
+Route::GET('/afficherArchivages/{id}', [CotrollerArchivages::class, 'afficherArchivages'])->name('afficherArchivages');
+Route::GET('/afficherArchivages/{id}', [CotrollerArchivages::class, 'afficherArchivages'])->name('afficherArchivages');
+
+Route::Post('/afficherByDate', [CotrollerArchivages::class, 'afficherByDate'])->name('afficherByDate');
+
+
 
 
 // Route::post('/importValid', function (Request $request) {
