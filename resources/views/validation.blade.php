@@ -176,9 +176,14 @@ if ($cond==true) {
                             .toUpperCase() != "IF") {
                             var num = $(this).text().trim();
                             const regex = new RegExp(/^[0-9]{7,10}$/g);
-                            if (regex.test(num) != false) {} else {
-                                console.log(regex.test(num));
+                            // console.log(regex.test(num));
+
+                            if (regex.test(num) != false) {
+                                $(this).css('background-color', 'none');
+
+                            } else {
                                 $(this).css('background-color', ' rgba(255, 106, 0, 0.5) ');
+
                                 testNum = false;
                                 test = false;
                             }
@@ -216,13 +221,15 @@ if ($cond==true) {
                                 '0'); //January is 0!
                             var yyyy = today.getFullYear();
 
-                            today = yyyy + '/' + dd + '/' + mm;
+                            today = yyyy + '/' + mm + '/' + dd;
 
                             if (DATE_PAIE > today) {
                                 $(this).css('background-color', ' rgba(253, 160, 93, 0.5) ');
                                 testDP = false;
 
 
+                            } else {
+                                $(this).css('background-color', 'none');
                             }
 
 
@@ -243,7 +250,7 @@ if ($cond==true) {
 
 
                             } else {
-                                // test = false;
+                                $(this).css('background-color', 'none');
 
 
                             }
@@ -293,7 +300,13 @@ if ($cond==true) {
                             $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
                             testCal = false;
                             test = true;
-                            console.log(testCal);
+                        } else if (myTableArray[conT][4].trim() == TVA.toFixed(2) && $(this)
+                            .text().trim() != 'TVA') {
+                            // console.log(myTableArray[conT][4].trim())
+                            // console.log(TVA.toFixed(2))
+                            $(this).css('background-color', 'none');
+                            testCal = true;
+                            test = true;
                         }
                     }
 
@@ -308,6 +321,10 @@ if ($cond==true) {
                             // console.log(parseFloat(myTableArray[4][3].trim()) + parseFloat(myTableArray[4][4].trim()))
                             $(this).css('background-color', 'rgba(255, 0, 208, 0.5)');
                             testCal = false;
+                        } else if (Sum.toFixed(2) == MTTC.toFixed(2)) {
+                            // console.log(parseFloat(myTableArray[4][3].trim()) + parseFloat(myTableArray[4][4].trim()))
+                            $(this).css('background-color', 'none');
+                            testCal = true;
                         }
                     }
 
@@ -506,8 +523,7 @@ if ($cond==true) {
                 if (logAllEvents) {
                     $("table").on("cell:onEditExit", function(event) {
                         setTimeout(() => {
-                            console.log("onEditExit event")
-                            valid()
+                            valid();
                         }, 100);
 
 
@@ -577,7 +593,6 @@ if ($cond==true) {
         var requestData = JSON.stringify(myTableArray1);
 
         if (test == true) {
-            console.log(myTableArray1);
             $.ajax({
                 //    url: "{{ route('importValid') }}",
                 url: "{{ route('importValid') }}",
@@ -588,6 +603,7 @@ if ($cond==true) {
                 },
                 // data: {name:'yogesh',salary: 35000,email: 'yogesh@makitweb.com'},
                 success: function(data) {
+                    console.log(data);
                     if (data.title == 'Success') {
                         toastr.success(data.message);
                         setTimeout(() => {

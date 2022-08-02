@@ -21,6 +21,7 @@ class CreateSocietesTable extends Migration
             $table->integer('periode');
             $table->integer('ICE');
             $table->integer('regime');
+            $table->string('profile_image');
             $table->timestamps();
         });
     }

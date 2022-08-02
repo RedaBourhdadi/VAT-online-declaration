@@ -28,7 +28,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/checkOnline', function (App\Repositories\AttendanceRepository $attendanceRepo) {
-    if (Auth::check()) { }
+    if (Auth::check()) {
+    }
     return $attendanceRepo->CountUserOnline();
 })->name('checkOnline');
 
@@ -47,13 +48,17 @@ Route::GET('/exportXml', [CotrollerXML::class, 'afficherXML'])->name('exportXml'
 Route::Post('/exportXmlValid', [CotrollerXML::class, 'exportXml'])->name('exportXmlValid');
 
 
-Route::GET('/societe', [SocietesController::class, 'create'])->name('societe');
+Route::GET('/societe', [SocietesController::class, 'afficher'])->name('societe');
+Route::GET('/societe/create', [SocietesController::class, 'create'])->name('createSociete');
 Route::POST('/societe/store', [SocietesController::class, 'store'])->name('storeSociete');
-Route::GET('/societe/show', [SocietesController::class, 'show'])->name('ShowSociete');
-Route::POST('/societe/edit', [SocietesController::class, 'edit'])->name('EditSociete');
-Route::POST('/societe/valid', [SocietesController::class, 'update'])->name('UpdateSociete');
+Route::GET('/societe/show/{id}', [SocietesController::class, 'show'])->name('ShowSociete');
+Route::GET('/societe/edit/{id}', [SocietesController::class, 'edit'])->name('EditSociete');
+Route::put('/societe/update/{id}', [SocietesController::class, 'update'])->name('UpdateSociete');
+Route::GET('/societe/delete/{id}', [SocietesController::class, 'destroy'])->name('DeleteSociete');
+
+
 Route::GET('/afficherArchivages/{id}', [CotrollerArchivages::class, 'afficherArchivages'])->name('afficherArchivages');
-Route::GET('/afficherArchivages/{id}', [CotrollerArchivages::class, 'afficherArchivages'])->name('afficherArchivages');
+// Route::GET('/afficherArchivages/{id}', [CotrollerArchivages::class, 'afficherArchivages'])->name('afficherArchivages');
 
 Route::Post('/afficherByDate', [CotrollerArchivages::class, 'afficherByDate'])->name('afficherByDate');
 
@@ -65,10 +70,10 @@ Route::Post('/afficherByDate', [CotrollerArchivages::class, 'afficherByDate'])->
 //        $data = $request->all();
 //     $data = json_decode($data['data'], true);
 //     }
-  
-  
-  
-  
+
+
+
+
 //   // $data = $request->all();
 //     // $data = json_decode($data['data'], true);
 //     // $data = array_filter($data);

@@ -7,7 +7,7 @@
             <h2>Create Societe</h2>
         </div>
         <div class="card-body">
-            <form action="{{ route('storeSociete') }}" method="POST">
+            <form action="{{ route('storeSociete') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="exampleFormControlInput1"> raisonSociale </label>
@@ -36,11 +36,15 @@
                 <div class="form-group">
                     <label for="exampleFormControlInput1"> regime </label>
                     <input type="text" name="regime" class="form-control" id="exampleFormControlInput1"
-                        placeholder=" regime" required>
+                        placeholder="regime" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1"> image </label>
+                    <input type="file" name="profile_image" class="form-control" required>
                 </div>
                 <div class="form-footer pt-4 pt-5 mt-4 border-top">
-                    <button type="submit" class="btn btn-primary btn-default">Submit</button>
-
+                    <button type="submit" class="btn btn-outline-primary">Submit</button>
                 </div>
             </form>
         </div>

@@ -14,8 +14,7 @@ class Societe extends Model
         'periode',
         'ICE',
         'regime',
+        'profile_image',
         'user_id',
     ];
-
-
 }

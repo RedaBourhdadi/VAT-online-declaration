@@ -16,90 +16,73 @@ class SocietesController extends Controller
      */
     public function create()
     {
-        $societes = Societe::where('user_id', Auth::user()->id)->get()->first();
-        if ($societes != null) {
-            return view('societe.show', compact('societes'));
-        } else {
-            return view('societe.create');
-        }
+        $societes = Societe::where('user_id', Auth::user()->id)->get();
+        return view('societe.create', compact('societes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
+    public function afficher()
+    {
+        $societes = Societe::where('user_id', Auth::user()->id)->get();
+        return view('societe.afficher', compact('societes'));
+    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        Societe::insert(
-            [
-                'raisonSociale' => $request->raisonSociale,
-                'identifiantFiscale' => $request->identifiantFiscale,
-                'periode' => $request->periode,
-                'ICE' => $request->ICE,
-                'regime' => $request->regime,
-                'user_id' => Auth::user()->id,
-                'created_at' => now(),
-            ]
-        );
-        return redirect()->route('ShowSociete');
+        $Societe = new Societe();
+        $Societe->raisonSociale = $request->raisonSociale;
+        $Societe->identifiantFiscale = $request->identifiantFiscale;
+        $Societe->periode = $request->periode;
+        $Societe->ICE = $request->ICE;
+        $Societe->regime = $request->regime;
+        if ($request->hasFile('profile_image')) {
+            $file = $request->file('profile_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('images/', $filename);
+            $Societe->profile_image = $filename;
+        }
+        $Societe->user_id = Auth::user()->id;
+        $Societe->created_at = now();
+        $Societe->save();
+        return redirect()->route('ShowSociete', ['id' => $Societe->id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
+    public function show($id)
     {
-        $societes = Societe::where('user_id', Auth::user()->id)->get()->first();
+        $societes = Societe::find($id);
         return view('societe.show', compact('societes'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
+    public function edit($id)
     {
-        $societes = Societe::where('user_id', Auth::user()->id)->get()->first();
-        // dd($societes);
+        $societes = Societe::find($id);
         return view('societe.edit', compact('societes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        DB::table('societes')
-            ->where('user_id', Auth::user()->id)
-            ->update(
-                [
-                    'raisonSociale' => $request->raisonSociale,
-                    'identifiantFiscale' => $request->identifiantFiscale,
-                    'periode' => $request->periode,
-                    'ICE' => $request->ICE,
-                    'regime' => $request->regime,
-                ]
-            );
-
-        return redirect()->route('ShowSociete');
+        $Societe = Societe::find($id);
+        $Societe->raisonSociale = $request->raisonSociale;
+        $Societe->identifiantFiscale = $request->identifiantFiscale;
+        $Societe->periode = $request->periode;
+        $Societe->ICE = $request->ICE;
+        $Societe->regime = $request->regime;
+        if ($request->hasFile('profile_image')) {
+            $destination = 'images/' . $Societe->profile_image;
+            if (file_exists($destination)) {
+                unlink($destination);
+            }
+            $file = $request->file('profile_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('images/', $filename);
+            $Societe->profile_image = $filename;
+        }
+        $Societe->user_id = Auth::user()->id;
+        $Societe->created_at = now();
+        $Societe->save();
+        return redirect()->route('ShowSociete', compact('Societe', 'id'));
     }
 
     /**
@@ -110,6 +93,7 @@ class SocietesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Societe::destroy($id);
+        return redirect()->route('societe');
     }
 }

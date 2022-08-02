@@ -12,6 +12,7 @@ class CotrollerArchivages extends Controller
 {
     public function afficherArchivages($idd)
     {$seconds = 1;
+        
         // $societes =  Societe::where([
         //         'user_id' , Auth::user()->id,
         //         'identifiantFiscale' , $idd

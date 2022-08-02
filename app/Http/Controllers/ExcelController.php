@@ -89,8 +89,8 @@ class ExcelController extends Controller
           //  return $data;
             foreach ($data as $key => $value) {
                 if ($num==0){
-
                     if (  $value[0] == " OR "  && $value[1] == " FACT_NUM "  && $value[2] == " DESIGNATION "  && $value[3] == " M_HT "  && $value[4] == " TVA "  && $value[5] == " M_TTC "  && $value[6] == " IF "  && $value[7] == " LIB_FRSS "  && $value[8] == " ICE_FRS "  && $value[9] == " TAUX "  && $value[10] == " ID_PAIE "  && $value[11] == " DATE_PAIE "  && $value[12] == " DATE_FAC "  ){
+                        $num++;
                         $num++;
                         $cond= true;
                     }else{
@@ -102,11 +102,16 @@ class ExcelController extends Controller
                     }
                    
                 } else {
-                    if ($cond==true){
-                        ExcelTva::insert(['user_id' => Auth::id(),'OR' => $value[0],'FACT_NUM' => $value[1],'DESIGNATION' => $value[2],'M_HT' => $value[3],'TVA' => $value[4],'M_TTC' => $value[5],'IF' => $value[6],'LIB_FRSS' => $value[7],'ICE_FRS' => $value[8],'TAUX' => $value[9],'ID_PAIE' => $value[10],'DATE_PAIE' => $value[11]." 00:00:00",'DATE_FAC' => $value[12]." 00:00:00", 'created_at' => now(), 'updated_at' => now()]);
+if ($num == 2){
+    
+
+    
+      ExcelTva::insert(['user_id' => Auth::id(),'OR' => $value[0],'FACT_NUM' => $value[1],'DESIGNATION' => $value[2],'M_HT' => $value[3],'TVA' => $value[4],'M_TTC' => $value[5],'IF' => $value[6],'LIB_FRSS' => $value[7],'ICE_FRS' => $value[8],'TAUX' => $value[9],'ID_PAIE' => $value[10],'DATE_PAIE' => $value[11]." 00:00:00",'DATE_FAC' => $value[12]." 00:00:00"]);
+}
+                
 
                         // ExcelTva::insert(['user_id' => Auth::id(),'col1' => $value[0],'col2' => $value[1],'col3' =>  $value[2], 'created_at' => now(), 'updated_at' => now()]);
-                    }
+                    
                 }
 
 }
